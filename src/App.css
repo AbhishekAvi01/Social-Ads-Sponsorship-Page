@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Agar purana koi standard custom styling ho toh use aap delete kar sakte hain */
+body {
+  margin: 0;
+  background-color: #F9FAFB;
+}
