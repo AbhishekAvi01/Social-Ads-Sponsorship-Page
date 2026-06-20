@@ -1,14 +1,15 @@
-// src/components/sections/AnalyticsAndFormats.jsx
 import React, { useState } from 'react';
-import { BarChart3, PieChart, RefreshCw, Eye, MousePointer, Wallet, ArrowUpRight, Monitor, Smartphone, LayoutGrid } from 'lucide-react';
+import { BarChart3, RefreshCw, Wallet, ArrowUpRight, Monitor, Smartphone, LayoutGrid, Sparkles } from 'lucide-react';
 import { Card } from '../common/Card';
 import { Badge } from '../common/Badge';
 
 export const AnalyticsAndFormats = () => {
-  // Local state to simulate custom format preview orientation switches
   const [previewDevice, setPreviewDevice] = useState('mobile');
-  // State to simulate a live UI data reloading trigger
   const [isRefreshing, setIsRefreshing] = useState(false);
+  
+  
+  const [selectedFormat, setSelectedFormat] = useState('standard'); 
+  const [sandboxActionLog, setSandboxActionLog] = useState('');
 
   const mockCampaigns = [
     { id: 'c-001', name: 'Q2 Sovereign Token Launch Boost', status: 'Active', budget: '15,000 Coins', spent: '9,240 Coins', clicks: '24.2k', ctr: '4.8%', roi: '+142%' },
@@ -17,16 +18,44 @@ export const AnalyticsAndFormats = () => {
     { id: 'c-004', name: 'Sponsor Championship Banner Ext', status: 'Completed', budget: '12,000 Coins', spent: '12,000 Coins', clicks: '34.5k', ctr: '5.2%', roi: '+189%' }
   ];
 
+  const creativeSpecs = {
+    standard: {
+      title: 'Accelerate Yield Rewards Instantly!',
+      desc: 'Connect an authorized verification ledger, settle network stakes via native asset pipelines, and lock 15% optimization credits.',
+      dimensions: '1:1 Square Frame Matrix',
+      badge: 'Interactive Post'
+    },
+    banner: {
+      title: 'E-Rupai Distributed Ledger Gateway v2',
+      desc: 'Institutional scale micro-transaction pipelines live. Trade, pool, and liquidate instantly.',
+      dimensions: '728x90 Billboard Node',
+      badge: 'Wide Header Banner'
+    }
+  };
+
   const handleRefreshSimulation = () => {
     setIsRefreshing(true);
     setTimeout(() => setIsRefreshing(false), 800);
   };
 
+  const handleInteractTrigger = () => {
+    setSandboxActionLog('Simulation Dispatch: Direct URI Callback Initialized');
+    setTimeout(() => setSandboxActionLog(''), 2500);
+  };
+
   return (
     <section className="py-20 bg-[#F9FAFB] px-4 sm:px-6 lg:px-8 border-t border-[#E5E7EB]">
+      
+      
+      {sandboxActionLog && (
+        <div className="fixed bottom-5 left-5 z-50 bg-emerald-600 border border-emerald-500 text-white px-4 py-2.5 rounded-xl shadow-2xl text-xs font-bold font-mono tracking-wide animate-bounce">
+          {sandboxActionLog}
+        </div>
+      )}
+
       <div className="max-w-7xl mx-auto space-y-24">
 
-        {/* SECTION A: CAMPAIGN DASHBOARD */}
+        
         <div className="space-y-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-left">
             <div className="space-y-1">
@@ -35,14 +64,13 @@ export const AnalyticsAndFormats = () => {
             </div>
             <button 
               onClick={handleRefreshSimulation}
-              className="inline-flex items-center gap-2 px-4 py-2 border border-[#E5E7EB] rounded-xl bg-white text-xs font-bold text-[#111827] hover:bg-gray-50 active:bg-gray-100 transition-all self-start sm:self-auto"
+              className="inline-flex items-center gap-2 px-4 py-2 border border-[#E5E7EB] rounded-xl bg-white text-xs font-bold text-[#111827] hover:bg-gray-50 active:bg-gray-100 transition-all cursor-pointer self-start sm:self-auto"
             >
               <RefreshCw className={`w-3.5 h-3.5 text-[#6B7280] ${isRefreshing ? 'animate-spin' : ''}`} />
               Sync Ledger Data
             </button>
           </div>
 
-          {/* Quick Real-time High-level Metrics Row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
             <Card className="bg-white border border-[#E5E7EB]">
               <div className="flex justify-between items-start">
@@ -78,7 +106,6 @@ export const AnalyticsAndFormats = () => {
             </Card>
           </div>
 
-          {/* Main Campaign Grid Table Wrapper */}
           <div className="bg-white border border-[#E5E7EB] rounded-2xl shadow-sm overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse whitespace-nowrap">
@@ -117,10 +144,10 @@ export const AnalyticsAndFormats = () => {
           </div>
         </div>
 
-        {/* SECTION B: AD FORMAT PREVIEWS HUB */}
+        
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
-          {/* Formats Selection Column */}
+       
           <div className="lg:col-span-5 space-y-6 text-left">
             <div className="space-y-3">
               <h3 className="text-2xl font-extrabold text-[#111827] tracking-tight">Adaptive Native Creative Layouts</h3>
@@ -130,67 +157,100 @@ export const AnalyticsAndFormats = () => {
             </div>
 
             <div className="space-y-3">
-              <div className="p-4 border border-[#dc2626] bg-gradient-to-r from-white to-[#fef2f2] rounded-xl flex items-center justify-between cursor-pointer">
+             
+              <div 
+                onClick={() => setSelectedFormat('standard')}
+                className={`p-4 border rounded-xl flex items-center justify-between cursor-pointer transition-all ${
+                  selectedFormat === 'standard' 
+                    ? 'border-[#dc2626] bg-gradient-to-r from-white to-[#fef2f2]' 
+                    : 'border-[#E5E7EB] bg-white hover:border-gray-300'
+                }`}
+              >
                 <div>
                   <h4 className="font-bold text-sm text-[#111827]">Standard Core Interactive Post</h4>
                   <p className="text-xs text-[#6B7280] mt-0.5">Asset specs: High-resolution PNG/JPG ratio 1:1</p>
                 </div>
-                <LayoutGrid className="w-5 h-5 text-[#dc2626]" />
+                <LayoutGrid className={`w-5 h-5 ${selectedFormat === 'standard' ? 'text-[#dc2626]' : 'text-gray-400'}`} />
               </div>
-              <div className="p-4 border border-[#E5E7EB] bg-white hover:border-gray-300 rounded-xl flex items-center justify-between cursor-pointer transition-all">
+
+            
+              <div 
+                onClick={() => setSelectedFormat('banner')}
+                className={`p-4 border rounded-xl flex items-center justify-between cursor-pointer transition-all ${
+                  selectedFormat === 'banner' 
+                    ? 'border-[#dc2626] bg-gradient-to-r from-white to-[#fef2f2]' 
+                    : 'border-[#E5E7EB] bg-white hover:border-gray-300'
+                }`}
+              >
                 <div>
                   <h4 className="font-bold text-sm text-[#111827]">Wide Ecosystem Board Banner</h4>
                   <p className="text-xs text-[#6B7280] mt-0.5">Asset specs: Horizontal vector canvas 728x90px</p>
                 </div>
-                <Monitor className="w-5 h-5 text-gray-400" />
+                <Monitor className={`w-5 h-5 ${selectedFormat === 'banner' ? 'text-[#dc2626]' : 'text-gray-400'}`} />
               </div>
             </div>
           </div>
 
-          {/* Interactive Live Device Canvas Container Screen */}
+          
           <div className="lg:col-span-7 bg-white border border-[#E5E7EB] rounded-2xl shadow-sm p-6 space-y-4">
             <div className="flex items-center justify-between border-b border-gray-100 pb-4">
               <span className="text-xs font-bold text-[#111827] uppercase tracking-widest">Active Mock Sandbox View</span>
               
-              {/* Responsive Frame Toggle Switch Toggles */}
+              
               <div className="flex bg-gray-100 p-1 rounded-lg border border-gray-200">
                 <button 
                   onClick={() => setPreviewDevice('mobile')}
-                  className={`p-1.5 rounded-md transition-all ${previewDevice === 'mobile' ? 'bg-white shadow text-[#dc2626]' : 'text-gray-500 hover:text-[#111827]'}`}
+                  className={`p-1.5 rounded-md transition-all cursor-pointer ${previewDevice === 'mobile' ? 'bg-white shadow text-[#dc2626]' : 'text-gray-500 hover:text-[#111827]'}`}
                 >
                   <Smartphone className="w-4 h-4" />
                 </button>
                 <button 
                   onClick={() => setPreviewDevice('desktop')}
-                  className={`p-1.5 rounded-md transition-all ${previewDevice === 'desktop' ? 'bg-white shadow text-[#dc2626]' : 'text-gray-500 hover:text-[#111827]'}`}
+                  className={`p-1.5 rounded-md transition-all cursor-pointer ${previewDevice === 'desktop' ? 'bg-white shadow text-[#dc2626]' : 'text-gray-500 hover:text-[#111827]'}`}
                 >
                   <Monitor className="w-4 h-4" />
                 </button>
               </div>
             </div>
 
-            {/* Simulated Live Viewport Container Layout Frame */}
-            <div className="bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-8 flex justify-center items-center min-h-[340px] transition-all">
-              <div className={`bg-white border border-[#E5E7EB] rounded-xl shadow-md overflow-hidden transition-all duration-300 text-left ${previewDevice === 'mobile' ? 'w-64' : 'w-full max-w-lg'}`}>
-                {/* Simulated Header Wrapper inside application sandbox mock */}
+        
+            <div className="bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-8 flex justify-center items-center min-h-[360px] transition-all">
+              <div className={`bg-white border border-[#E5E7EB] rounded-xl shadow-md overflow-hidden transition-all duration-300 text-left ${
+                previewDevice === 'mobile' ? 'w-64' : 'w-full max-w-xl'
+              }`}>
+               
                 <div className="p-3 bg-gray-50 border-b border-gray-100 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <div className="w-5 h-5 rounded-full bg-[#dc2626]/20"></div>
-                    <span className="text-[10px] font-bold text-gray-700">E-Rupai Hub Post</span>
+                    <div className="w-5 h-5 rounded-full bg-[#dc2626]/20 flex items-center justify-center text-[8px] font-bold text-[#dc2626]">eR</div>
+                    <span className="text-[10px] font-bold text-gray-700">E-Rupai Hub Platform</span>
                   </div>
                   <Badge variant="danger">Sponsored</Badge>
                 </div>
-                {/* Simulated Visual Creative Elements Frame Area */}
-                <div className="bg-gradient-to-br from-gray-100 to-gray-200 aspect-video flex flex-col justify-center items-center p-4 text-center border-b border-gray-100 relative">
-                  <span className="text-xs font-bold text-gray-500 font-mono">Creative Banner Mockup Node</span>
-                  <span className="text-[10px] text-gray-400 mt-1">16:9 Display Frame Matrix</span>
+                
+                
+                <div className={`bg-gradient-to-br from-gray-100 to-gray-200 flex flex-col justify-center items-center p-4 text-center border-b border-gray-100 relative transition-all ${
+                  selectedFormat === 'standard' ? 'aspect-video' : 'h-16'
+                }`}>
+                  <span className="text-xs font-bold text-gray-600 font-mono">
+                    {creativeSpecs[selectedFormat].badge}
+                  </span>
+                  <span className="text-[10px] text-gray-400 mt-1 font-mono">
+                    {creativeSpecs[selectedFormat].dimensions}
+                  </span>
                 </div>
+                
+                
                 <div className="p-4 space-y-3">
-                  <h5 className="font-bold text-xs text-[#111827]">Accelerate Yield Rewards Instantly!</h5>
+                  <h5 className="font-bold text-xs text-[#111827] leading-tight">
+                    {creativeSpecs[selectedFormat].title}
+                  </h5>
                   <p className="text-[10px] text-[#6B7280] leading-relaxed">
-                    Connect an authorized verification ledger, settle network stakes via native asset pipelines, and lock 15% optimization credits.
+                    {creativeSpecs[selectedFormat].desc}
                   </p>
-                  <button className="w-full py-2 bg-[#dc2626] text-white text-[10px] font-bold rounded-lg text-center tracking-wide block hover:bg-[#ef4444] transition-all">
+                  <button 
+                    onClick={handleInteractTrigger}
+                    className="w-full py-2 bg-[#dc2626] hover:bg-[#ef4444] text-white text-[10px] font-bold rounded-lg text-center tracking-wide block transition-all cursor-pointer shadow-xs active:scale-[0.99]"
+                  >
                     Interact & Open App
                   </button>
                 </div>
